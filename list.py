@@ -8,9 +8,9 @@ from selenium.webdriver.common.keys import Keys
 
 def filter(addedContacts, profile):
     if profile == "thiago":
-        filter = "Administração F Rassi Fibra Otica" 
+        filter = "Mariana Dornelles Fibra Otica" 
     elif profile == "pedro":
-        filter = "Charles Esteves Fibra Otica"
+        filter = "2- Talita Clinica Oma Fibras Oticas"
     elif profile == "flavia":
         filter = "Amanda Machado Fibra Otica" 
     
@@ -56,26 +56,26 @@ def message(driver, addedContacts, profile):
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
             # Copy the image
-            utils.imageToClipboard(fr"C:\Users\nikao\Documents\Code\fibras\Images\{profile}")
+            utils.imageToClipboard(fr"C:\Users\pedro\OneDrive\Documentos\Code\whatsapp\images\{profile}")
 
-            # Select a picture on the chat
+            # Paste it
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
-
             time.sleep(7)
 
-            #Click the send button in PT
+            # Send it
             try:
+                # Portuguese
                 send_button = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.XPATH, "//div[@aria-label='Enviar']"))
                 )
             except:
-                # Click the send button in EN
+                # English
                 send_button = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Send"]'))
                 )
-
             send_button.click()
             time.sleep(8)
+            
             i += 1
             print(f"Mensagem para {contact} - {i} bem sucedida, {len(addedContacts)} restantes")
         except:
