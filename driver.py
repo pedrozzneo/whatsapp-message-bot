@@ -1,4 +1,5 @@
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import os
@@ -18,7 +19,10 @@ def set(profile):
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--start-maximized')
 
-    # Automatically download and use the correct ChromeDriver
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    # Use Service() to specify the driver executable
+    service = Service(ChromeDriverManager().install())
+
+    # Initialize Chrome with correct arguments
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     return driver

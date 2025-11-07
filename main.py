@@ -5,7 +5,7 @@ import list
 import time
 from datetime import datetime
 
-# #Espera dar 08:00 para iniciar a aplicação
+#Espera dar 08:00 para iniciar a aplicação
 # while True:
 #     agora = datetime.now()
 #     if agora.hour >= 7 and agora.hour <= 16:
