@@ -8,32 +8,22 @@ from selenium.webdriver.common.keys import Keys
 
 def filter(addedContacts, profile):
     if profile == "thiago":
-        filter = "Jana Clínica Giselle Oliveira Fibra Otica" 
+        filter = "Dra Aline Fibra Otica Lisboa" 
     elif profile == "pedro":
-        filter = "Charles Esteves Fibra Otica"
+        filter = "2- Talita Clinica Oma Fibras Oticas"
     elif profile == "flavia":
         filter = "Amanda Machado Fibra Otica" 
     
-    # Make sure the filter exists in the list
-    while True:
-        if filter not in addedContacts:
-            filter = input(f"{filter} não encontrado na lista de contatos, insira novamente: ")
-        else:
-            break
-    
-    # if filter in addedContacts:
-    #     return addedContacts[addedContacts.index(filter)]
-    
-    # Actually filter the list
+    # Actually filter the list (try with slice afterwards)
     while True:
         contact = addedContacts.pop(0)
         if contact == filter:
             addedContacts.append(contact)
             return addedContacts
 
-def message(driver, addedContacts):
+def message(driver, addedContacts, profile):
     i = 0
-    while addedContacts != [] and i < 200:
+    while addedContacts != [] and i < 250:
         time.sleep(12)
         try:
             # Get the first contact in the list
@@ -65,33 +55,27 @@ def message(driver, addedContacts):
             # Make the input field empty
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
-            # Select a picture on the chat
-            ActionChains(driver).key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
+            # Copy the image
+            utils.imageToClipboard(fr"C:\Users\pedro\OneDrive\Documentos\Code\whatsapp\images\{profile}")
 
+            # Paste it
+            ActionChains(driver).key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
             time.sleep(7)
 
-            #Click the send button in PT
+            # Send it
             try:
+                # Portuguese
                 send_button = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.XPATH, "//div[@aria-label='Enviar']"))
                 )
             except:
-                # Click the send button in EN
+                # English
                 send_button = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Send"]'))
                 )
-
             send_button.click()
             time.sleep(8)
-
-            #Type the message in the input field
-            # message = "Bom dia!! Tudo bem? Estamos com condições especiais nas fibras, gostaria de saber mais?"
-            # ActionChains(driver).send_keys(message).perform()
-
-            # Send the message
-            # ActionChains(driver).send_keys(Keys.RETURN).perform()
             
-            # Save and output progress
             i += 1
             print(f"Mensagem para {contact} - {i} bem sucedida, {len(addedContacts)} restantes")
         except:
@@ -110,9 +94,7 @@ def build(driver):
     groupCount = 0
     validGroup = None
 
-    # variable that determines the end of the loop
     end = False
-    #or addedContacts.length <= 200
     while not end:
         time.sleep(3)
         # Find the group of contacts
@@ -180,10 +162,6 @@ def build(driver):
             groupCount -= 1
             continue
 
-
-        # REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT REMOVE THAT THAT REMOVE THAT THAT REMOVE THAT THAT REMOVE THAT THAT REMOVE THAT THAT REMOVE THAT THAT REMOVE THAT 
-        # end = True
-
         # Quit the loop
         if end:
             print("End of contacts reached.")
@@ -200,5 +178,4 @@ def build(driver):
         WebDriverWait(driver, 30).until(EC.staleness_of(group[0]))
         print("Old group become stale, looking for new one...")
 
-    print("returning")
     return addedContacts, removedContacts, errors, equalNames
