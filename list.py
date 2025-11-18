@@ -22,8 +22,11 @@ def filter(addedContacts, profile):
             return addedContacts
 
 def message(driver, addedContacts, profile):
+    # Path to get the images from
+    clipboardPath = fr"C:\Users\pedro\Documents\Code\whatsapp\images\{profile}"
+    
     i = 0
-    while addedContacts != [] and i < 250:
+    while addedContacts != [] and i < 100:
         time.sleep(12)
         try:
             # Get the first contact in the list
@@ -56,7 +59,7 @@ def message(driver, addedContacts, profile):
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
 
             # Copy the image
-            utils.imageToClipboard(fr"C:\Users\pedro\OneDrive\Documentos\Code\whatsapp\images\{profile}")
+            utils.imageToClipboard(clipboardPath)
 
             # Paste it
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
@@ -128,7 +131,7 @@ def build(driver):
                 errors.append("unable to interact with contact")
                 validGroup = False
                 break
-
+            
             # Means I reached the last contact of the group successfuly
             if i == (contactsAmount - 1):
                 validGroup = True
