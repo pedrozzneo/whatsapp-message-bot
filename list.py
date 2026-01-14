@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 
 def filter(addedContacts, profile):
     if profile == "thiago":
-        filter = "Dra Aline Fibra Otica Lisboa" 
+        filter = "Thai Fibra Otica" 
     elif profile == "pedro":
         filter = "2- Talita Clinica Oma Fibras Oticas"
     elif profile == "flavia":

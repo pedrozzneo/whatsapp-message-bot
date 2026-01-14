@@ -33,6 +33,7 @@ def main(profile):
 
     # Message each contact
     list.message(driver, addedContacts, profile)
+    driver.quit()
 
 # Each profile runs in a different time of the day
 while True:
@@ -41,6 +42,7 @@ while True:
         break
     time.sleep(60) 
 main("thiago")
+
 
 while True:
     agora = datetime.now()
