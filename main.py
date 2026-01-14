@@ -5,41 +5,55 @@ import list
 import time
 from datetime import datetime
 
-#Espera dar 08:00 para iniciar a aplicação
-# while True:
-#     agora = datetime.now()
-#     if agora.hour >= 7 and agora.hour <= 16:
-#         break
-#     time.sleep(60)  
+def main(profile):
+    # Set chrome driver and open whatsapp
+    driver = d.set(profile)
+    driver.get("https://web.whatsapp.com")
+    time.sleep(30)
 
-profile = "thiago"
-# profile = "pedro"
-# profile = "flavia"
+    # Filter "lista" contacts until it's successfull
+    success = False
+    while not success:
+        try:
+            utils.search("fibra", driver)
+            success = True
+            time.sleep(53)
+        except:
+            continue
 
-# Set chrome driver and open whatsapp
-driver = d.set(profile)
-driver.get("https://web.whatsapp.com")
-time.sleep(140)
+    # Build all the lists
+    addedContacts, removedContacts, errors, equalNames= list.build(driver)
 
-# Filter "lista" contacts until it's successfull
-success = False
-while not success:
-    try:
-        utils.search("fibra", driver)
-        success = True
-        time.sleep(53)
-    except:
-        continue
+    # Print them
+    utils.show(addedContacts, removedContacts, errors, equalNames)
 
-# Build all the lists
-addedContacts, removedContacts, errors, equalNames= list.build(driver)
+    # Start with a specific contact
+    addedContacts = list.filter(addedContacts, profile)
+    utils.show(addedContacts, removedContacts, errors, equalNames)
 
-# Print them
-utils.show(addedContacts, removedContacts, errors, equalNames)
+    # Message each contact
+    list.message(driver, addedContacts, profile)
 
-# Start with a specific contact
-addedContacts = list.filter(addedContacts, profile)
-utils.show(addedContacts, removedContacts, errors, equalNames)
+# Each profile runs in a different time of the day
+while True:
+    agora = datetime.now()
+    if agora.hour >= 7 and agora.hour <= 16:
+        break
+    time.sleep(60) 
+main("thiago")
 
-# Message each contact
-list.message(driver, addedContacts, profile)  
+while True:
+    agora = datetime.now()
+    if agora.hour >= 10 and agora.hour <= 16:
+        break
+    time.sleep(60) 
+main("pedro")
+
+while True:
+    agora = datetime.now()
+    if agora.hour >= 14 and agora.hour <= 16:
+        break
+    time.sleep(60) 
+main("flavia")
+
+

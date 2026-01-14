@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 import utils
 import time
+import random
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,7 +13,7 @@ def filter(addedContacts, profile):
     elif profile == "pedro":
         filter = "2- Talita Clinica Oma Fibras Oticas"
     elif profile == "flavia":
-        filter = "Amanda Machado Fibra Otica" 
+        filter = "Thiago Miciei Fibra Otica" 
     
     # Actually filter the list (try with slice afterwards)
     while True:
@@ -26,15 +27,15 @@ def message(driver, addedContacts, profile):
     clipboardPath = fr"C:\Users\pedro\Documents\Code\whatsapp\images\{profile}"
     
     i = 0
-    while addedContacts != [] and i < 100:
-        time.sleep(12)
+    while addedContacts != [] and i < 40:
+        time.sleep(random.randint(20, 45))
         try:
             # Get the first contact in the list
             contact = addedContacts.pop(0)
 
             # Search for the contact
             utils.search(contact, driver)
-            time.sleep(10)
+            time.sleep(random.randint(20, 45))
 
             # Find the right contact reference and click it
             reference = 2
@@ -53,7 +54,7 @@ def message(driver, addedContacts, profile):
                     break
 
             element.click()
-            time.sleep(11)
+            time.sleep(random.randint(20, 45))
 
             # Make the input field empty
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -63,7 +64,7 @@ def message(driver, addedContacts, profile):
 
             # Paste it
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("v").key_up(Keys.CONTROL).perform()
-            time.sleep(7)
+            time.sleep(random.randint(20, 45))
 
             # Send it
             try:
@@ -77,7 +78,7 @@ def message(driver, addedContacts, profile):
                     EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Send"]'))
                 )
             send_button.click()
-            time.sleep(8)
+            time.sleep(random.randint(20, 45))
             
             i += 1
             print(f"Mensagem para {contact} - {i} bem sucedida, {len(addedContacts)} restantes")
