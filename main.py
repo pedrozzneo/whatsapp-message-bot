@@ -38,7 +38,7 @@ def main(profile):
 # Each profile runs in a different time of the day
 while True:
     agora = datetime.now()
-    if agora.hour >= 7 and agora.hour <= 16:
+    if agora.hour >= 7 and agora.hour <= 10:
         break
     time.sleep(60) 
 main("thiago")
@@ -46,7 +46,7 @@ main("thiago")
 
 while True:
     agora = datetime.now()
-    if agora.hour >= 10 and agora.hour <= 16:
+    if agora.hour >= 10 and agora.hour <= 14:
         break
     time.sleep(60) 
 main("pedro")
