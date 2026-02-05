@@ -27,7 +27,7 @@ def message(driver, addedContacts, profile):
     clipboardPath = fr"C:\Users\pedro\Documents\Code\whatsapp\images\{profile}"
     
     i = 0
-    while addedContacts != [] and i < 40:
+    while addedContacts != [] and i < 50:
         time.sleep(random.randint(20, 45))
         try:
             # Get the first contact in the list
