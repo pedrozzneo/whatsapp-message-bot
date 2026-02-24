@@ -7,21 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-def filter(addedContacts, profile):
-    if profile == "thiago":
-        filter = "Thai Fibra Otica" 
-    elif profile == "pedro":
-        filter = "2- Talita Clinica Oma Fibras Oticas"
-    elif profile == "flavia":
-        filter = "Thiago Miciei Fibra Otica" 
-    
-    # Actually filter the list (try with slice afterwards)
-    while True:
-        contact = addedContacts.pop(0)
-        if contact == filter:
-            addedContacts.append(contact)
-            return addedContacts
-
 def message(driver, addedContacts, profile):
     # Path to get the images from
     clipboardPath = fr"C:\Users\pedro\Documents\Code\whatsapp\images\{profile}"

@@ -24,11 +24,8 @@ def main(profile):
     # Build all the lists
     addedContacts, removedContacts, errors, equalNames= list.build(driver)
 
-    # Print them
-    utils.show(addedContacts, removedContacts, errors, equalNames)
-
-    # Start with a specific contact
-    addedContacts = list.filter(addedContacts, profile)
+    # Reverse the list to start with the oldest
+    addedContacts.reverse()
     utils.show(addedContacts, removedContacts, errors, equalNames)
 
     # Message each contact
@@ -38,9 +35,9 @@ def main(profile):
 # Each profile runs in a different time of the day
 while True:
     agora = datetime.now()
-    if agora.hour >= 7 and agora.hour <= 8:
+    if agora.hour == 3 and agora.minute <= 60:
         main("thiago")
-    elif agora.hour >= 10 and agora.hour <= 11:
-        main("pedro")
-    elif agora.hour >= 13 and agora.hour <= 14:
-        main("flavia")
+    # elif agora.hour >= 7 and agora.hour <= 8:
+    #     main("thiago")
+    # elif agora.hour >= 15 and agora.hour <= 16:
+    #     main("flavia")
