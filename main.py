@@ -21,23 +21,23 @@ def main(profile):
         except:
             continue
 
-    # Build all the lists
+    # Build the list until "contacts"
     addedContacts, removedContacts, errors, equalNames= list.build(driver)
 
-    # Reverse the list to start with the oldest
-    addedContacts.reverse()
-    utils.show(addedContacts, removedContacts, errors, equalNames)
+    # Build the rest of list
+    oldContacts, removedContacts, errors, equalNames = list.buildOld(driver, addedContacts)
+
+    # Print the lists
+    utils.show(oldContacts, removedContacts, errors, equalNames)
 
     # Message each contact
-    list.message(driver, addedContacts, profile)
+    list.message(driver, oldContacts, profile)
     driver.quit()
 
 # Each profile runs in a different time of the day
 while True:
     agora = datetime.now()
-    if agora.hour == 3 and agora.minute <= 60:
+    if agora.hour == 8 and agora.minute == 0:
         main("thiago")
-    # elif agora.hour >= 7 and agora.hour <= 8:
-    #     main("thiago")
-    # elif agora.hour >= 15 and agora.hour <= 16:
-    #     main("flavia")
+    elif agora.hour >= 15 and agora.hour == 0:
+        main("thiago")
