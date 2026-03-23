@@ -166,6 +166,7 @@ def build(driver):
         WebDriverWait(driver, 30).until(EC.staleness_of(group[0]))
         print("Old group become stale, looking for new one...")
 
+    addedContacts.reverse()
     return addedContacts, removedContacts, errors, equalNames
 
 def buildOld(driver, addedContacts):
@@ -223,7 +224,7 @@ def buildOld(driver, addedContacts):
                 break
 
             # Check if the contact should not be added
-            if "excluir" in name.lower() or "mec med" in name.lower() or name.lower() == "contacts" or name.lower() == "chats" or name.lower() == "conversas" or "fibra" not in name.lower() or "mec med" in name.lower():
+            if "excluir" in name.lower() or "mec med" in name.lower() or name.lower() == "contacts" or name.lower() == "chats" or name.lower() == "conversas" or "fibra" not in name.lower() or "mec med" in name.lower() or "problema" in name.lower():
                 # Show the contact that will be skipped
                 print(f"{i} - skipping contact: {name}")
 
