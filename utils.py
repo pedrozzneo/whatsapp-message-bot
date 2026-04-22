@@ -11,9 +11,19 @@ import win32clipboard
 
 def search(filter, driver):
     try:
+        print("im on search")
+        
+        try:
+            close_btn = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//button[@aria-label="End icon button"]')))
+            close_btn.click()
+        except:
+            print("nothing to reset")
+   
         # Find and select the search field 
-        search_field = WebDriverWait(driver, 120).until(EC.element_to_be_clickable((By.XPATH, '//div[@class="x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v"]')))
+        search_field = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@placeholder="Pesquisar ou começar uma nova conversa"]')))
         search_field.click()
+        print(f"\n clicked")
     
         # Clear the search field and type the filter
         ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).perform()
@@ -32,28 +42,6 @@ def scroll_inside_div_js(driver, scroll_amount):
         driver.execute_script("arguments[0].scrollTop += arguments[1];",div_element,scroll_amount)
     except:
         print("❌ scrolled down")
-
-def show(addedContacts, removedContacts, errors, equalNames):
-    # Show the added contacts collected
-    print(f"\n Lista de contatos adicionados: \n")
-    for i, contact in enumerate(addedContacts, start=1):
-        print(f"{i}: {contact}")
-
-    # Show the deleted collected 
-    print(f"\n Lista de contatos removidos: \n")
-    for i, contact in enumerate(removedContacts, start=1):
-        print(f"{i}: {contact}")
-
-    # Show the errors collected
-    if errors:
-        print(f"\n Lista de erros: \n")
-        for error in errors:
-            print(error)
-
-    if equalNames:
-        print(f"\n Lista de nomes repetidos: \n")
-        for name in equalNames:
-            print(name)
 
 def imageToClipboard(folder_path):
     # Lista todos os arquivos da pasta
