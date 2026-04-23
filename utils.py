@@ -20,8 +20,17 @@ def search(filter, driver):
         except:
             print("nothing to reset")
    
-        # Find and select the search field 
-        search_field = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@placeholder="Pesquisar ou começar uma nova conversa"]')))
+        # Find and select the search field
+        try:
+            search_field = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@placeholder="Pesquisar ou começar uma nova conversa"]')))
+        except:
+            print("portuguese search field failed")
+
+        try:
+            search_field = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//input[@placeholder="Search or start a new chat"]')))
+        except:
+            print("english search field failed")
+
         search_field.click()
         print(f"\n clicked")
     
