@@ -9,7 +9,6 @@ def main(profile):
     # Set chrome driver and open whatsapp
     driver = d.set(profile)
     driver.get("https://web.whatsapp.com")
-    # time.sleep(5)
 
     with open(f"lists/{profile}/addedContacts.txt", "r", encoding="utf-8") as addedContactsFile:
         contacts = addedContactsFile.read().split("\n")
@@ -18,12 +17,17 @@ def main(profile):
     list.message(driver, contacts, profile)
     driver.quit()
 
-
-# main("flavia")
-main("pedro")
 # Each profile runs in a different time of the day
-# while True:
-#     agora = datetime.now()
-#     if agora.hour == 7:
-#         main("thiago")
-#     time.sleep(25)
+weekDayTime = [[9, 0], [9, 10],[9, 20],[9, 30],[9, 40]]
+while True:
+    agora = datetime.now()
+    dayCombo = weekDayTime[agora.weekday()]
+    hour = dayCombo[0]
+    minute = dayCombo[1]
+
+    if agora.hour == hour and agora.minute == minute:
+        main("thiago")
+        main("pedro")
+        main("flavia")
+
+    time.sleep(20)
