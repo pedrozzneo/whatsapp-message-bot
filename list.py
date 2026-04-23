@@ -27,17 +27,9 @@ def message(driver, addedContacts, profile):
                 except:
                     continue
 
-            groupCount = 0
-
             try:
-                groupCount += 1
-                print(f"\ncollecting contacts from group {groupCount} ... \n")
-
-                group = WebDriverWait(driver, 30).until(
-                    EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='x10l6tqk xh8yej3 x1g42fcv']"))
-                )
+                group = WebDriverWait(driver, 30).until(EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='x10l6tqk xh8yej3 x1g42fcv']")))
                 contactsAmount = len(group)
-
             except Exception as e:
                 print(f"unable to find a group of contacts {str(e)}")
 
