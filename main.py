@@ -11,20 +11,19 @@ def main(profile):
     driver.get("https://web.whatsapp.com")
     # time.sleep(5)
 
-    with open(f"lists/{profile}/addedContacts.txt", "r") as addedContactsFile:
+    with open(f"lists/{profile}/addedContacts.txt", "r", encoding="utf-8") as addedContactsFile:
         contacts = addedContactsFile.read().split("\n")
 
     # Message each contact
     list.message(driver, contacts, profile)
     driver.quit()
 
-main("thiago")
+
 # main("flavia")
-# main("pedro")
+main("pedro")
 # Each profile runs in a different time of the day
 # while True:
 #     agora = datetime.now()
-#     if agora.hour == 10:
-#         main("pedro")
-#         main("flavia")
+#     if agora.hour == 7:
+#         main("thiago")
 #     time.sleep(25)
