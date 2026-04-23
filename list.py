@@ -37,19 +37,18 @@ def message(driver, addedContacts, profile):
                 try:
                     # Get the name of the contact
                     name = group[i].text.split('\n')[0].strip()
-                    print(name)
+                    print(f"{name} was found")
                 except:
-                    print("messaging failed")
-
-            element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, f'//span[@title="{name}"]')))
-            print(element)
-
-            # go up to the clickable container
-            clickable = element.find_element(By.XPATH, './ancestor::div[@role="button"]')
-            print(clickable)
-            clickable.click()
+                    print("no names")
 
             time.sleep(random.randint(5, 10))
+
+            try:
+                clicklableContact = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, f'//div[@role="row"][.//span[@title="{name}"]]')))
+                clicklableContact.click()
+                print("contact clicked")
+            except:
+                print("failed clicking the contact")
 
             # Make the input field empty
             ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).perform()
@@ -77,7 +76,7 @@ def message(driver, addedContacts, profile):
             time.sleep(10)
 
             #Remove contact from list
-            with open(f"lists/{profile}/addedContacts.txt", "w") as addedContactsFile:
+            with open(f"lists/{profile}/addedContacts.txt", "w", encoding="utf-8") as addedContactsFile:
                 for i in range(len(addedContacts)):
                     addedContactsFile.write(addedContacts[i] + '\n')
             
