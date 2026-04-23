@@ -94,8 +94,8 @@ def build(profile):
 
     addedContacts.reverse()
     
-    with open(f"lists/{profile}/addedContacts.txt", "w") as addedContactsFile:
+    with open(f"lists/{profile}/addedContacts.txt", "w", encoding="utf-8") as addedContactsFile:
         for i in range(len(addedContacts)):
             addedContactsFile.write(addedContacts[i] + '\n')
 
-build("pedro")
+build("flavia")
